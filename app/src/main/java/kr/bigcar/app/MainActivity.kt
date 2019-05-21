@@ -18,6 +18,8 @@ import android.os.Parcelable
 import android.provider.MediaStore
 import java.io.File
 import android.app.Activity
+import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,13 +27,14 @@ class MainActivity : AppCompatActivity() {
     val FILECHOOSER_NORMAL_REQ_CODE = 1
     val FILECHOOSER_LOLLIPOP_REQ_CODE = 2
 
-    private var mUploadMessage: ValueCallback<Uri>? = null
     private var mCapturedImageURI: Uri? = null
     private var filePathCallbackNormal: ValueCallback<Uri>? = null;
     private var filePathCallbackLollipop: ValueCallback<Array<Uri>>? = null;
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // 액티비티 세로로 고정
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContentView(R.layout.activity_main)
         webview.clearCache(true)
         webview.clearHistory()
@@ -85,7 +88,10 @@ class MainActivity : AppCompatActivity() {
 //                return super.onShowFileChooser(webView, filePathCallback, fileChooserParams)
             }
         }
-        webview.loadUrl("http://172.30.1.2:3000")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            webview.settings.allowUniversalAccessFromFileURLs = true
+        }
+        webview.loadUrl("https://bigcar.kr")
     }
 
 
@@ -110,5 +116,9 @@ class MainActivity : AppCompatActivity() {
                 filePathCallbackLollipop!!.onReceiveValue(result)
             }
         }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration?) {
+        super.onConfigurationChanged(newConfig)
     }
 }
