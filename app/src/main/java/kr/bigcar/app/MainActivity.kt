@@ -42,6 +42,8 @@ class MainActivity : AppCompatActivity() {
         // 키보드가 인풋 가리지 않도록
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         webview.clearCache(true)
+        // 기기에서 폰트 크게해도 그대로 유지
+        webview.settings.textZoom = 100
         webview.clearHistory()
         webview.settings.javaScriptEnabled = true
         webview.settings.javaScriptCanOpenWindowsAutomatically = true
