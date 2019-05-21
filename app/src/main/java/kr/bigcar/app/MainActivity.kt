@@ -20,6 +20,9 @@ import java.io.File
 import android.app.Activity
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
+import android.view.WindowManager
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -36,6 +39,8 @@ class MainActivity : AppCompatActivity() {
         // 액티비티 세로로 고정
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContentView(R.layout.activity_main)
+        // 키보드가 인풋 가리지 않도록
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         webview.clearCache(true)
         webview.clearHistory()
         webview.settings.javaScriptEnabled = true
