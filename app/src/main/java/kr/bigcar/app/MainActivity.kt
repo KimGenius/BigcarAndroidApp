@@ -61,7 +61,6 @@ class MainActivity : AppCompatActivity() {
                 Log.d("file", "choose")
                 if (filePathCallbackLollipop !== null) {
                     filePathCallbackLollipop = null
-//                    filePathCallbackLollipop!!.onReceiveValue(null)
                 }
                 filePathCallbackLollipop = filePathCallback
                 // Create AndroidExampleFolder at sdcard
@@ -87,12 +86,10 @@ class MainActivity : AppCompatActivity() {
 
                 // Create file chooser intent
                 val chooserIntent = Intent.createChooser(i, "Image Chooser")
-                // Set camera intent to file chooser
                 chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf<Parcelable>(captureIntent))
 
                 startActivityForResult(Intent.createChooser(i, "File Choose"), FILECHOOSER_LOLLIPOP_REQ_CODE)
                 return true
-//                return super.onShowFileChooser(webView, filePathCallback, fileChooserParams)
             }
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -111,7 +108,7 @@ class MainActivity : AppCompatActivity() {
             filePathCallbackNormal = null
         } else if (requestCode === FILECHOOSER_LOLLIPOP_REQ_CODE) {
             var result: Array<Uri> = arrayOf()
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 if (resultCode === Activity.RESULT_OK) {
                     result =
                         if (data == null) arrayOf<Uri>(mCapturedImageURI!!)
