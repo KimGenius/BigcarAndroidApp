@@ -3,26 +3,19 @@ package kr.bigcar.app
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
-import android.os.Environment
 import android.support.annotation.RequiresApi
 import android.util.Log
-import android.webkit.WebChromeClient
 import kotlinx.android.synthetic.main.activity_main.*
-import android.webkit.GeolocationPermissions
-import android.webkit.ValueCallback
-import android.webkit.WebView
-import android.os.Parcelable
 import android.provider.MediaStore
 import java.io.File
 import android.app.Activity
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
+import android.os.*
+import android.view.View
 import android.view.WindowManager
-
-
+import android.webkit.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -39,7 +32,6 @@ class MainActivity : AppCompatActivity() {
         // 액티비티 세로로 고정
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContentView(R.layout.activity_main)
-        // 키보드가 인풋 가리지 않도록
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         webview.clearCache(true)
         // 기기에서 폰트 크게해도 그대로 유지
@@ -48,6 +40,13 @@ class MainActivity : AppCompatActivity() {
         webview.settings.javaScriptEnabled = true
         webview.settings.javaScriptCanOpenWindowsAutomatically = true
         webview.webChromeClient = object : WebChromeClient() {
+            override fun onProgressChanged(view: WebView?, newProgress: Int) {
+                super.onProgressChanged(view, newProgress)
+                if (newProgress === 100 && logo.visibility === View.VISIBLE) {
+                    view!!.visibility = View.VISIBLE
+                    logo.visibility = View.GONE
+                }
+            }
             override fun onGeolocationPermissionsShowPrompt(origin: String, callback: GeolocationPermissions.Callback) {
                 super.onGeolocationPermissionsShowPrompt(origin, callback)
                 callback.invoke(origin, true, false)

@@ -5,13 +5,25 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:configChanges="keyboard|keyboardHidden|orientation|orientation|screenSize"
+        android:background="#49b788"
         tools:context=".MainActivity">
+
+    <ImageView
+            android:id="@+id/logo"
+            android:src="@drawable/logo_edited"
+            android:layout_width="151dp"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
     <WebView
             android:id="@+id/webview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
